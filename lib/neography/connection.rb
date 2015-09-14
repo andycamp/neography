@@ -69,7 +69,7 @@ module Neography
           is_streaming = headers && (headers['X-Stream'] == true)
           if is_streaming
             streamer = lambda { |chunk, _, _| stream += chunk }
-            req_params.merge!({:persistent => false, :response_block => streamer,
+            req_params.merge!({:response_block => streamer,
                                :read_timeout => 100000000, :write_timeout => 100000000})
           end
           response = @client.request(req_params)
