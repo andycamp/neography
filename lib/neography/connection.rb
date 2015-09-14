@@ -69,8 +69,8 @@ module Neography
           is_streaming = headers && (headers['X-Stream'] == true)
           if is_streaming
             streamer = lambda { |chunk, _, _| stream += chunk }
-            req_params.merge!({:response_block => streamer,
-                               :read_timeout => 100000000, :write_timeout => 100000000})
+            req_params.merge!({:persistent => false, :response_block => streamer,
+                               :read_timeout => 30, :write_timeout => 30})
           end
           response = @client.request(req_params)
           evaluate_response(response, path, query_body, is_streaming, (partial_path == "batch"), stream)
